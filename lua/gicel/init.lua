@@ -19,6 +19,14 @@ function M.setup()
     },
     filetype = "gicel",
   }
+
+  -- Start tree-sitter highlighting regardless of nvim-treesitter load order
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "gicel",
+    callback = function(args)
+      vim.treesitter.start(args.buf, "gicel")
+    end,
+  })
 end
 
 return M
