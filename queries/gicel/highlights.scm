@@ -52,6 +52,12 @@
 
 ; ── Imports ─────────────────────────────────────────────────────────
 (import_declaration (module_name (constructor) @module))
+(import_alias "as" @keyword)
+(import_alias alias: (constructor) @module)
+(import_item (identifier) @function)
+(import_item (constructor) @type)
+(import_members (constructor) @constructor)
+(import_members ".." @punctuation.special)
 
 ; ── Types ──────────────────────────────────────────────────────────
 (forall_type "\\" @keyword)
@@ -64,6 +70,14 @@
 (qualified_type (type_application constructor: (constructor) @type))
 (qualified_type (constructor) @type)
 (constraint (constructor) @type)
+
+; ── Qualified references ──────────────────────────────────────────
+(qualified_variable module: (constructor) @module)
+(qualified_variable name: (identifier) @variable)
+(qualified_constructor module: (constructor) @module)
+(qualified_constructor name: (constructor) @constructor)
+(qualified_type_constructor module: (constructor) @module)
+(qualified_type_constructor name: (constructor) @type)
 
 ; ── Expressions ────────────────────────────────────────────────────
 (lambda_expression "\\" @keyword.function)
