@@ -2,6 +2,7 @@
 
 [
   (data_declaration)
+  (type_family_declaration)
   (class_declaration)
   (instance_declaration)
   (do_expression)

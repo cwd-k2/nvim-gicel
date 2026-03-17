@@ -6,6 +6,7 @@
   (gadt_body)
   (instance_body)
   (class_declaration)
+  (type_family_declaration)
   (record_expression)
   (record_update_expression)
   (block_expression)
