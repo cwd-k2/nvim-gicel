@@ -103,6 +103,7 @@
 
 ; ── Patterns ───────────────────────────────────────────────────────
 (constructor_pattern (constructor) @constructor)
+(constructor_pattern (qualified_constructor module: (constructor) @module))
 (field_pattern label: (identifier) @property)
 (wildcard) @variable.parameter
 
@@ -111,6 +112,7 @@
 
 ; ── Literals ───────────────────────────────────────────────────────
 (integer) @number
+(double) @number.float
 (string) @string
 (rune) @character
 (escape_sequence) @string.escape
