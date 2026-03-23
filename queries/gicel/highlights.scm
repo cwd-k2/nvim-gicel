@@ -21,7 +21,8 @@
 ; ── Declarations ───────────────────────────────────────────────────
 (form_declaration name: (constructor) @type.definition)
 (type_alias name: (constructor) @type.definition)
-(impl_declaration name: (identifier) @function)
+(impl_declaration class: (constructor) @type)
+(impl_name (identifier) @function)
 
 (type_annotation name: (identifier) @function)
 (type_annotation name: (parenthesized_operator (operator) @function))
