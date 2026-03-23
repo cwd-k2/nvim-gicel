@@ -5,7 +5,7 @@
   (impl_declaration)
   (do_expression)
   (case_expression)
-  (gadt_body)
+  (form_brace_body)
   (impl_body)
   (record_expression)
   (record_update_expression)

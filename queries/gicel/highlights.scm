@@ -20,7 +20,7 @@
 
 ; ── Declarations ───────────────────────────────────────────────────
 (form_declaration name: (constructor) @type.definition)
-(type_alias_declaration name: (constructor) @type.definition)
+(type_alias name: (constructor) @type.definition)
 (impl_declaration name: (identifier) @function)
 
 (type_annotation name: (identifier) @function)
@@ -87,7 +87,6 @@
 (projection_expression ".#" @operator)
 (projection_expression field: (identifier) @property)
 (type_application_expression "@" @operator)
-(multiplicity_annotation "@" @operator)
 
 ; ── Operator sections ─────────────────────────────────────────────
 (operator_section operator: (operator) @operator)

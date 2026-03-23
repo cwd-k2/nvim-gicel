@@ -3,7 +3,7 @@
 [
   (do_expression)
   (case_expression)
-  (gadt_body)
+  (form_brace_body)
   (impl_body)
   (impl_declaration)
   (record_expression)
