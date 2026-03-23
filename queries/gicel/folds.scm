@@ -1,7 +1,7 @@
 ; Folds for GICEL
 
 [
-  (data_declaration)
+  (form_declaration)
   (impl_declaration)
   (do_expression)
   (case_expression)
