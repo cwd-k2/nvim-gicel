@@ -6,8 +6,7 @@
   "data"
   "do"
   "type"
-  "class"
-  "instance"
+  "impl"
   "import"
   "infixl"
   "infixr"
@@ -22,17 +21,13 @@
 ; ── Declarations ───────────────────────────────────────────────────
 (data_declaration name: (constructor) @type.definition)
 (type_alias_declaration name: (constructor) @type.definition)
-(type_family_declaration name: (constructor) @type.definition)
-(class_declaration name: (constructor) @type.definition)
-(instance_declaration class: (constructor) @type)
+(impl_declaration name: (identifier) @function)
 
 (type_annotation name: (identifier) @function)
 (type_annotation name: (parenthesized_operator (operator) @function))
 (value_definition name: (identifier) @function)
 (value_definition name: (parenthesized_operator (operator) @function))
 
-(method_signature name: (identifier) @function.method)
-(method_signature name: (parenthesized_operator (operator) @function.method))
 (method_definition name: (identifier) @function.method)
 (method_definition name: (parenthesized_operator (operator) @function.method))
 
@@ -43,8 +38,7 @@
 (fixity_declaration operator: (operator) @operator)
 (fixity_declaration operator: (identifier) @function)
 
-; ── Type families ─────────────────────────────────────────────────
-(type_family_equation name: (constructor) @type)
+; ── Associated types/data (in data and impl bodies) ──────────────
 (assoc_type_signature name: (constructor) @type.definition)
 (assoc_data_signature name: (constructor) @type.definition)
 (assoc_type_definition name: (constructor) @type)
@@ -66,10 +60,9 @@
 (type_application constructor: (constructor) @type)
 (row_field label: (identifier) @property)
 
-; Constraint before =>: highlight the constructor as a type class
+; Constraint before =>: highlight the constructor as a class name
 (qualified_type (type_application constructor: (constructor) @type))
 (qualified_type (constructor) @type)
-(constraint (constructor) @type)
 
 ; ── Qualified references ──────────────────────────────────────────
 (qualified_variable module: (constructor) @module)
@@ -122,7 +115,7 @@
 (block_comment) @comment
 
 ; ── Punctuation ────────────────────────────────────────────────────
-["->" "=>" "::" ":=" "=:"] @punctuation.special
+["->" "=>" "::" ":="] @punctuation.special
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 ["," ";" "|" "." ":" "\\"] @punctuation.delimiter
 
