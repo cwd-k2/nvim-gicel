@@ -11,6 +11,9 @@
   "infixl"
   "infixr"
   "infixn"
+  "if"
+  "then"
+  "else"
 ] @keyword
 
 ; ── Built-in identifiers ───────────────────────────────────────────
@@ -21,14 +24,17 @@
 ; ── Declarations ───────────────────────────────────────────────────
 (form_declaration name: (constructor) @type.definition)
 (type_alias name: (constructor) @type.definition)
+(type_family name: (constructor) @type.definition)
 (impl_declaration class: (constructor) @type)
-(impl_name (identifier) @function)
+(impl_name name: (identifier) @function)
 
 (type_annotation name: (identifier) @function)
 (type_annotation name: (parenthesized_operator (operator) @function))
 (value_definition name: (identifier) @function)
 (value_definition name: (parenthesized_operator (operator) @function))
 
+(method_signature name: (identifier) @function.method)
+(method_signature name: (parenthesized_operator (operator) @function.method))
 (method_definition name: (identifier) @function.method)
 (method_definition name: (parenthesized_operator (operator) @function.method))
 
@@ -64,6 +70,7 @@
 ; Constraint before =>: highlight the constructor as a class name
 (qualified_type (type_application constructor: (constructor) @type))
 (qualified_type (constructor) @type)
+(constraint (constructor) @type)
 
 ; ── Qualified references ──────────────────────────────────────────
 (qualified_variable module: (constructor) @module)
@@ -83,6 +90,7 @@
 (let_statement ":=" @keyword.operator)
 
 (type_annotated_expression "::" @punctuation.special)
+(evidence_injection "=>" @keyword.operator)
 
 (field_value label: (identifier) @property)
 (projection_expression ".#" @operator)
