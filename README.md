@@ -19,13 +19,14 @@ Neovim support for [GICEL](https://github.com/cwd-k2/gicel) via [tree-sitter](ht
   dependencies = { "nvim-treesitter/nvim-treesitter" },
   config = function()
     require("gicel").setup()
-    -- Install the parser
-    vim.cmd("TSInstall gicel")
   end,
 }
 ```
 
+After installation, run `:TSInstall gicel` to compile the parser.
+
 ### Manual
 
 1. Add this plugin to your Neovim runtime path.
-2. Run `:TSInstall gicel` to compile and install the parser.
+2. Call `require("gicel").setup()` in your config.
+3. Run `:TSInstall gicel` to compile the parser.
