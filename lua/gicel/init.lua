@@ -21,10 +21,17 @@ function M.setup()
       }
     else
       -- nvim-treesitter 1.x (main branch)
-      parsers.gicel = {
-        install_info = info,
-        tier = 3,
-      }
+      -- reload_parsers() clears the module cache before each :TSInstall,
+      -- so a one-shot assignment is not enough. The User TSUpdate autocmd
+      -- fires after every reload and is the intended extension point.
+      local entry = { install_info = info, tier = 3 }
+      parsers.gicel = entry
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "TSUpdate",
+        callback = function()
+          require("nvim-treesitter.parsers").gicel = entry
+        end,
+      })
     end
   end
 
