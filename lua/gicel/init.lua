@@ -1,41 +1,40 @@
 local M = {}
 
+-- Revision of tree-sitter-gicel that this plugin's queries are compatible with.
+-- Update this when tree-sitter-gicel grammar changes affect node types.
+local PARSER_REVISION = "d87477467ce60ff5dd9efcb33dca337f5fee64dd"
+
 function M.setup()
   vim.filetype.add({
     extension = { gicel = "gicel" },
   })
 
-  local ok, parsers = pcall(require, "nvim-treesitter.parsers")
+  local ok = pcall(require, "nvim-treesitter.parsers")
   if ok then
-    local info = {
-      url = "https://github.com/cwd-k2/tree-sitter-gicel",
-      files = { "src/parser.c", "src/scanner.c" },
-      branch = "main",
+    -- nvim-treesitter 1.x (main branch):
+    -- reload_parsers() clears the module cache on every :TSInstall/:TSUpdate,
+    -- so the User TSUpdate autocmd is the only stable injection point.
+    -- Setting `revision` ensures :TSUpdate detects when a rebuild is needed.
+    local entry = {
+      install_info = {
+        url = "https://github.com/cwd-k2/tree-sitter-gicel",
+        revision = PARSER_REVISION,
+      },
+      tier = 3,
     }
 
-    if type(parsers.get_parser_configs) == "function" then
-      -- Legacy nvim-treesitter (master branch)
-      parsers.get_parser_configs().gicel = {
-        install_info = info,
-        filetype = "gicel",
-      }
-    else
-      -- nvim-treesitter 1.x (main branch)
-      -- reload_parsers() clears the module cache before each :TSInstall,
-      -- so a one-shot assignment is not enough. The User TSUpdate autocmd
-      -- fires after every reload and is the intended extension point.
-      local entry = { install_info = info, tier = 3 }
-      parsers.gicel = entry
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "TSUpdate",
-        callback = function()
-          require("nvim-treesitter.parsers").gicel = entry
-        end,
-      })
+    local function inject()
+      require("nvim-treesitter.parsers").gicel = entry
     end
+
+    inject()
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "TSUpdate",
+      callback = inject,
+    })
   end
 
-  -- Start tree-sitter highlighting regardless of nvim-treesitter load order
+  -- Start tree-sitter highlighting regardless of nvim-treesitter load order.
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "gicel",
     callback = function(args)
