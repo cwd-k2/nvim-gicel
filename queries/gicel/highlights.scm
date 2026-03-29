@@ -108,6 +108,9 @@
 (field_pattern label: (identifier) @property)
 (wildcard) @variable.parameter
 
+; ── Label literals ────────────────────────────────────────────────
+(label_literal) @label
+
 ; ── Constructors ───────────────────────────────────────────────────
 (constructor) @constructor
 
