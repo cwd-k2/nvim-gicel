@@ -127,7 +127,7 @@
 (block_comment) @comment
 
 ; ── Punctuation ────────────────────────────────────────────────────
-["->" "=>" "::" ":=" "~"] @punctuation.special
+["->" "-|" "=>" "::" ":=" "~"] @punctuation.special
 ["(" ")" "[" "]" "{" "}"] @punctuation.bracket
 ["," ";" "|" "." ":" "\\"] @punctuation.delimiter
 

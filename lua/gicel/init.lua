@@ -2,7 +2,7 @@ local M = {}
 
 -- Revision of tree-sitter-gicel that this plugin's queries are compatible with.
 -- Update this when tree-sitter-gicel grammar changes affect node types.
-local PARSER_REVISION = "44f7cb9689bd25390b601cef3a646226a2fc8468"
+local PARSER_REVISION = "1792e9c0b590500ebc24178934fdfaa590821811"
 
 function M.setup()
   vim.filetype.add({
