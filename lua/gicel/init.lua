@@ -4,7 +4,17 @@ local M = {}
 -- Update this when tree-sitter-gicel grammar changes affect node types.
 local PARSER_REVISION = "e20d60a280ab9d9e1862a5ea12b2743736593b4b"
 
-function M.setup()
+local defaults = {
+  lsp = {
+    enable = true,
+    cmd = "gicel",
+  },
+}
+
+function M.setup(opts)
+  opts = vim.tbl_deep_extend("force", defaults, opts or {})
+  M._config = opts
+
   vim.filetype.add({
     extension = { gicel = "gicel" },
   })
@@ -34,12 +44,30 @@ function M.setup()
     })
   end
 
-  -- Start tree-sitter highlighting regardless of nvim-treesitter load order.
   vim.api.nvim_create_autocmd("FileType", {
     pattern = "gicel",
     callback = function(args)
       vim.treesitter.start(args.buf, "gicel")
+      M._start_lsp(args.buf)
     end,
+  })
+end
+
+function M._start_lsp(buf)
+  local cfg = M._config and M._config.lsp
+  if not cfg or not cfg.enable then
+    return
+  end
+
+  local cmd = cfg.cmd or "gicel"
+  if vim.fn.executable(cmd) == 0 then
+    return
+  end
+
+  vim.lsp.start({
+    name = "gicel-lsp",
+    cmd = { cmd, "lsp" },
+    root_dir = vim.fs.root(buf, ".git") or vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":h"),
   })
 end
 
