@@ -2,7 +2,7 @@ local M = {}
 
 -- Revision of tree-sitter-gicel that this plugin's queries are compatible with.
 -- Update this when tree-sitter-gicel grammar changes affect node types.
-local PARSER_REVISION = "e20d60a280ab9d9e1862a5ea12b2743736593b4b"
+local PARSER_REVISION = "20cf844c1b8786e67da5796c90608d2b2c7c909f"
 
 local defaults = {
   lsp = {
